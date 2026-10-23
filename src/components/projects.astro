@@ -1,0 +1,157 @@
+
+---
+import { siteConfig } from "@/data/site";
+
+interface Project {
+  title: string;
+  status: string;
+  summary: string;
+  technologies: string[];
+  projectUrl?: string;
+  sourceUrl?: string;
+}
+
+const projects: Project[] = [
+  {
+    title: "FinAssist — AI-Powered Financial Support",
+    status: "IBM Tech Training",
+    summary:
+      "Financial support assistant for transaction lookups, dispute creation, and support-case management. Connects an AI agent to backend APIs through IBM watsonx Orchestrate, with the same workflow available through the web interface and Slack.",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "watsonx Orchestrate",
+      "Azure",
+      "Docker",
+    ],
+    sourceUrl: "https://github.com/ChaserFrank/FinAssist",
+  },
+  {
+  title: "CacheDB — Redis-Compatible In-Memory Database",
+  status: "Systems Programming / Open Source Contribution",
+  summary:
+    "Redis-compatible in-memory database written from scratch in Go, with a custom RESP protocol server, RDB and AOF persistence, master/replica replication, transactions, ACLs, and pub/sub. Contributed concurrency and persistence fixes, graceful shutdown, replica retry logic, regression tests, and Docker support.",
+  technologies: [
+    "Go",
+    "TCP / RESP Protocol",
+    "Concurrency",
+    "Replication",
+    "Docker",
+    "Docker Compose",
+  ],
+  sourceUrl: "https://github.com/YOUNGGOAT34/CacheDB",
+},
+   {
+    title: "OpsCommand Center",
+    status: "Backend-Oriented Operations Platform",
+    summary:
+      "Operations and monitoring platform focused on APIs, background processing, audit logging, and real-time updates across operational workflows.",
+    technologies: [
+      "Django REST Framework",
+      "PostgreSQL",
+      "TimescaleDB",
+      "Redis",
+      "Celery",
+      "Django Channels",
+    ],
+    sourceUrl: "https://github.com/ChaserFrank/OpsCommand",
+  },
+];
+
+---
+
+<section
+  id="projects"
+  class="border-t border-[#ffffff10] py-16 text-[var(--white)] md:py-24"
+>
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-10 max-w-2xl">
+      <p class="mb-2 text-lg text-[var(--sec)] shiny-sec">
+        Selected work
+      </p>
+
+      <h2 class="text-4xl font-medium md:text-5xl">
+        Projects
+      </h2>
+
+      <p class="mt-4 text-[var(--white-icon)]">
+        A selection of backend systems, data platforms, and integrations
+        built to solve practical problems.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {projects.map((project) => (
+        <article
+          class="group flex h-full flex-col rounded-2xl border border-[#ffffff08] bg-[#141820] p-6 shadow-[0_16px_50px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:border-[#27d7f055] hover:bg-[#171c25]"
+        >
+          <p class="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-[#27d7f0]">
+            {project.status}
+          </p>
+
+          <h3 class="mb-3 text-xl font-semibold leading-tight text-[var(--white)]">
+            {project.title}
+          </h3>
+
+          <p class="text-sm leading-6 text-[var(--white-icon)]">
+            {project.summary}
+          </p>
+
+          <div class="mt-auto pt-7">
+            <div
+              class="flex flex-wrap gap-2"
+              aria-label={`${project.title} technologies`}
+            >
+              {project.technologies.map((technology) => (
+                <span
+                  class="rounded-full border border-[#27d7f044] bg-[#12343d] px-3 py-1.5 text-xs font-medium text-[#27d7f0]"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+
+            {(project.projectUrl || project.sourceUrl) && (
+              <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+                {project.projectUrl && (
+                  <a
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[#27d7f0] transition hover:text-white"
+                  >
+                    View Project <span aria-hidden="true">→</span>
+                  </a>
+                )}
+
+                {project.sourceUrl && (
+                  <a
+                    href={project.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[#27d7f0] transition hover:text-white"
+                  >
+                    Source Code <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 text-center">
+      <a
+        href={siteConfig.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm font-medium text-[#27d7f0] transition hover:text-white"
+      >
+        View more work on GitHub <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

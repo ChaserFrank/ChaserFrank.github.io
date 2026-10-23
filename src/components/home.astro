@@ -1,0 +1,44 @@
+---
+import SparkleField from "../React/SparkleField.tsx";
+import LogoWall from "../components/logoWall.astro";
+import SkillsList from "../React/SkillsList.tsx";
+import { siteConfig } from "@/data/site";
+
+const linkedinConfigured = !siteConfig.linkedin.startsWith("LINKEDIN_");
+---
+
+<section class="text-[var(--white)] mt-12 md:mt-0" id="home">
+  <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
+    <div class="text-left space-y-5">
+      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">Hi, I'm {siteConfig.name}</p>
+      <div class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4">
+        <h1 class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none">Backend Developer <br />&amp; Systems Engineer</h1>
+        <p class="text-md md:text-2xl text-[var(--white-icon)] max-w-2xl">I build dependable software systems that solve practical problems, connect services, and turn data into useful outcomes. I care about clean interfaces, reliable integrations, and building systems that are easy to <span class="text-[var(--sec)] shiny-sec">maintain and improve.</span></p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 pt-3 md:pt-6">
+        <a href="#projects" class="rounded-full bg-[var(--sec)] px-5 py-3 font-semibold text-[#17111f] transition hover:brightness-110">View Projects</a>
+        <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" class="rounded-full border border-[var(--white-icon-tr)] px-5 py-3 text-[var(--white-icon)] transition hover:border-[var(--sec)] hover:text-white">GitHub</a>
+        {linkedinConfigured ? <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" class="rounded-full border border-[var(--white-icon-tr)] px-5 py-3 text-[var(--white-icon)] transition hover:border-[var(--sec)] hover:text-white">LinkedIn</a> : <span class="rounded-full border border-dashed border-[var(--white-icon-tr)] px-5 py-3 text-sm text-[var(--white-icon)]" title="Add a verified LinkedIn profile URL in src/data/site.ts">LinkedIn URL to be added</span>}
+        <a href={`mailto:${siteConfig.email}`} class="rounded-full border border-[var(--white-icon-tr)] px-5 py-3 text-[var(--white-icon)] transition hover:border-[var(--sec)] hover:text-white">Email Me</a>
+      </div>
+    </div>
+
+    <LogoWall />
+
+    <div class="flex flex-col lg:flex-row items-center gap-8">
+      <SkillsList client:load />
+      <div class="sparkle-panel relative flex justify-center md:w-full md:h-[292px] size-[290px] overflow-hidden rounded-3xl border border-[#a476ff35] bg-[#171224] pt-3 md:pt-9 md:ml-16" aria-label="Animated constellation sparkle field">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(164,118,255,0.16),transparent_58%)]"></div>
+        <SparkleField client:load />
+        <div class="pointer-events-none absolute bottom-5 left-0 right-0 text-center text-[10px] uppercase tracking-[0.28em] text-[#d7c5ff80]">Build · Integrate · Improve</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .shiny-sec { background: linear-gradient(135deg, #a476ff 25%, #eee5ff 50%, #a476ff 75%); background-size: 400% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 3s linear infinite; }
+  .sparkle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  @keyframes shine { 0% { background-position: 100% 50%; } 30%, 70% { background-position: 0% 50%; } }
+  @media (prefers-reduced-motion: reduce) { .sparkle-canvas { opacity: .8; } }
+</style>

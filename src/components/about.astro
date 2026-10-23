@@ -1,0 +1,19 @@
+---
+import { siteConfig } from "@/data/site";
+---
+
+<section id="about" class="py-12 border-t border-[#ffffff10] text-[var(--white)]">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 md:gap-16 items-start">
+    <div>
+      <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">A little context</h2>
+      <h3 class="text-4xl md:text-5xl font-medium">About Me</h3>
+    </div>
+    <div class="space-y-5 text-[var(--white-icon)] leading-relaxed">
+      <p>I'm a backend-focused engineer who enjoys turning practical problems into dependable software systems. I work across application logic, data modelling, system integration, debugging, and deployment, with an emphasis on clear interfaces, reliable behaviour, and maintainable code.</p>
+      <p>I'm particularly interested in how well-designed backend systems can connect services, support complex workflows, and make technology more useful to people. I continue to develop my skills through hands-on projects, collaborative engineering, and exploring better ways to build, test, and operate software.</p>
+      <div class="grid gap-3 text-sm sm:grid-cols-2">
+        <div class="rounded-xl border border-[var(--white-icon-tr)] bg-[#1414149c] p-4"><span class="block text-[var(--white)] font-semibold mb-1">Education</span>{siteConfig.education}</div>
+      </div>
+    </div>
+  </div>
+</section>

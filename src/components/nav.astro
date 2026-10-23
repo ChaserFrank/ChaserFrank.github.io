@@ -1,0 +1,36 @@
+---
+interface NavItem { label: string; href: string; icon: string; }
+const navItems: NavItem[] = [
+  { label: "Home", href: "#home", icon: "⌂" },
+  { label: "About", href: "#about", icon: "i" },
+  { label: "Projects", href: "#projects", icon: "▣" },
+  { label: "Contact", href: "#contact", icon: "↗" },
+];
+---
+
+<div class="flex justify-center w-full">
+  <nav id="main-nav" class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--background)] border border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]" aria-label="Primary navigation">
+    <div class="container mx-auto flex justify-center items-center p-3">
+      <ul class="flex w-full justify-between md:space-x-6 md:justify-center md:gap-12 gap-3">
+        {navItems.map((item) => (
+          <li class="flex-1 md:flex-none"><a href={item.href} class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"><span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block"></span><span class="md:hidden flex items-center justify-center w-6 h-6 font-mono" aria-hidden="true">{item.icon}</span><span class="hidden md:inline-block">{item.label}</span><span class="md:hidden">{item.label}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</div>
+<style>
+  nav { transform: translateX(-50%); background-color: var(--background); transition: background-color .3s ease, border-radius .3s ease, border-color .3s ease; }
+  nav.scrolling { background-color: var(--component-bg); border-color: #ffffff10; border-radius: 9999px; }
+  nav a.active .nav-indicator { transform: translateY(-50%) scale(1); opacity: 1; }
+  nav a.active { color: white !important; }
+  @media (max-width: 767px) { nav { width: 100% !important; bottom: 0; left: 50%; position: fixed; border-radius: 1rem 1rem 0 0; border-color: #ffffff10; } nav.scrolling { border-radius: 1rem 1rem 0 0; background-color: #1c1c1c; } body { padding-bottom: 70px; } }
+</style>
+<script>
+  const nav = document.getElementById("main-nav");
+  let rafId: number | null = null;
+  function updateNav() { if (window.scrollY > 0) { nav?.classList.add("scrolling"); } else { nav?.classList.remove("scrolling"); } rafId = null; }
+  window.addEventListener("scroll", () => { if (!rafId) rafId = requestAnimationFrame(updateNav); }, { passive: true });
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => anchor.addEventListener("click", (e) => { e.preventDefault(); const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute("href")?.substring(1) || ""; document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" }); }));
+  document.addEventListener("DOMContentLoaded", () => { const sections = document.querySelectorAll("section[id]"); const navLinks = document.querySelectorAll("nav a[href^='#']"); const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { navLinks.forEach((link) => link.classList.remove("active")); document.querySelector(`nav a[href="#${entry.target.id}"]`)?.classList.add("active"); } }); }, { threshold: .45 }); sections.forEach((section) => observer.observe(section)); });
+</script>
